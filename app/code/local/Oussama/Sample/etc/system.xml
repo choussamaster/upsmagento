@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<config>
+    <tabs>
+        <oussama_sample label="Sample Oussama" module="oussama_sample">
+            <label>Sample Oussama</label>
+            <sort_order>1</sort_order>
+        </oussama_sample>
+    </tabs>
+    <sections>
+        <oussama_sample label="Sample Oussama" module="oussama_sample">
+            <label>Sample Oussama</label>
+            <tab>oussama_sample</tab>
+            <class>oussama_sample</class>
+            <frontend_type>text</frontend_type>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <oussama_sample>
+                    <label>Sample Oussama</label>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enabled>
+                            <label>Enable Oussama Sample</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <tooltip>Enale / disable outpout</tooltip>
+                            <sort_order>1</sort_order>
+                        </enabled>
+                    </fields>
+                </oussama_sample>
+            </groups>
+        </oussama_sample>
+    </sections>
+</config>

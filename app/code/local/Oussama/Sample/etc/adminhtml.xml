@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <oussama_sample>
+            <title>Sample</title>
+            <sort_order>100</sort_order>
+            <children>
+                <oussama_sample_list>
+                    <title>List Items</title>
+                    <sort_order>1</sort_order>
+                    <action>adminhtml/item</action>
+                </oussama_sample_list>
+            </children>
+        </oussama_sample>
+    </menu>
+</config>

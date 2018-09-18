@@ -1,0 +1,161 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Sirateck_Lemonway extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category       Sirateck
+ * @package        Sirateck_Lemonway
+ * @copyright      Copyright (c) 2015
+ * @license        http://opensource.org/licenses/mit-license.php MIT License
+ */
+ -->
+<config>
+    <modules>
+        <Sirateck_Lemonway>
+            <version>1.2.1</version>
+        </Sirateck_Lemonway>
+    </modules>
+    <global>
+        <resources>
+            <sirateck_lemonway_setup>
+                <setup>
+                    <module>Sirateck_Lemonway</module>
+                    <class>Sirateck_Lemonway_Model_Resource_Setup</class>
+                </setup>
+            </sirateck_lemonway_setup>
+        </resources>
+        <blocks>
+            <sirateck_lemonway>
+                <class>Sirateck_Lemonway_Block</class>
+            </sirateck_lemonway>
+        </blocks>
+        <helpers>
+            <sirateck_lemonway>
+                <class>Sirateck_Lemonway_Helper</class>
+            </sirateck_lemonway>
+        </helpers>
+        <models>
+            <sirateck_lemonway>
+                <class>Sirateck_Lemonway_Model</class>
+                <resourceModel>sirateck_lemonway_resource</resourceModel>
+            </sirateck_lemonway>
+            <sirateck_lemonway_resource>
+                <class>Sirateck_Lemonway_Model_Resource</class>
+                <entities>
+                    <wallet>
+                        <table>sirateck_lemonway_wallet</table>
+                    </wallet>
+                    <iban>
+                        <table>sirateck_lemonway_iban</table>
+                    </iban>
+                    <moneyout>
+                        <table>sirateck_lemonway_moneyout</table>
+                    </moneyout>
+                </entities>
+            </sirateck_lemonway_resource>
+        </models>
+    </global>
+    <frontend>
+		<secure_url>
+            <sirateck_lemonway>/lemonway/payment</sirateck_lemonway>
+        </secure_url>
+        <routers>
+            <sirateck_lemonway>
+                <use>standard</use>
+                <args>
+                    <module>Sirateck_Lemonway</module>
+                    <frontName>lemonway</frontName>
+                </args>
+            </sirateck_lemonway>
+        </routers>
+		<translate>
+            <modules>
+                <Sirateck_Lemonway>
+                    <files>
+                        <default>Sirateck_Lemonway.csv</default>
+                    </files>
+                </Sirateck_Lemonway>
+            </modules>
+        </translate>
+	</frontend>
+    <adminhtml>
+        <layout>
+            <updates>
+                <sirateck_lemonway>
+                    <file>sirateck_lemonway.xml</file>
+                </sirateck_lemonway>
+            </updates>
+        </layout>
+        <translate>
+            <modules>
+                <Sirateck_Lemonway>
+                    <files>
+                        <default>Sirateck_Lemonway.csv</default>
+                    </files>
+                </Sirateck_Lemonway>
+            </modules>
+        </translate>
+        <global_search>
+            <wallet>
+                <class>sirateck_lemonway/adminhtml_search_wallet</class>
+                <acl>sirateck_lemonway</acl>
+            </wallet>
+        </global_search>
+    </adminhtml>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <Sirateck_Lemonway before="Mage_Adminhtml">Sirateck_Lemonway_Adminhtml</Sirateck_Lemonway>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    <crontab>
+		<jobs>
+			<clean_orders_lw_in_pending>
+				<schedule><cron_expr>*/15 * * * *</cron_expr></schedule>
+				<run><model>sirateck_lemonway/observer::cancelOrdersInPending</model></run>
+			</clean_orders_lw_in_pending>
+		</jobs>
+	</crontab>
+    <default>
+		<sirateck_lemonway>
+			<lemonway_api>			
+				<api_pass backend_model="adminhtml/system_config_backend_encrypted"/>
+				<directkit_url></directkit_url>
+				<webkit_url></webkit_url>
+				<directkit_url_test></directkit_url_test>
+				<webkit_url_test></webkit_url_test>
+				<is_test_mode>0</is_test_mode>
+			</lemonway_api>
+		</sirateck_lemonway>
+		<payment>
+			<lemonway_webkit>
+				<active>0</active>
+				<title>Lemonway payment</title>
+				<order_status>pending</order_status>
+				<order_status_success>processing</order_status_success>
+				<allow_oneclic>0</allow_oneclic>
+				<css_url>https://www.lemonway.fr/mercanet_lw.css</css_url>
+				<cancel_pending_order>0</cancel_pending_order>
+				<payment_action>initialize</payment_action>
+				<allowspecific>0</allowspecific>
+				<debug>0</debug>
+				<model>sirateck_lemonway/method_webkit</model>
+				<return_url>lemonway/payment/return</return_url>
+				<cancel_url>lemonway/payment/cancel</cancel_url>
+				<error_url>lemonway/payment/error</error_url>	
+			</lemonway_webkit>
+		</payment>
+	</default>
+</config>

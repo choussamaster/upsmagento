@@ -1,0 +1,36 @@
+# Eclipse
+/.settings/
+/.project
+/.buildpath
+/local.properties
+
+# JetBrains
+/.idea/
+
+# NetBeans
+/nbproject/
+
+# Mac
+.DS_Store
+
+# Magento
+/.htaccess*
+/.htpasswd
+/app/etc/local.xml
+/media
+/var/
+/index.php
+*.log
+
+# modman
+/.modman/
+
+# Misc
+# Set your files under this section
+
+# wee_developertoolbar
+/app/code/community/Wee/
+*wee_developertoolbar*
+
+/sync/
+/sitemap.xml

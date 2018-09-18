@@ -1,0 +1,191 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magento.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magento.com for more information.
+ *
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2006-2014 X.commerce, Inc. (http://www.magento.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+/**
+ * @var $this Sirateck_Lemonway_Block_Adminhtml_Moneyout
+ */
+?>
+<div class="content-header">
+    <table cellspacing="0">
+        <tr>
+            <td style="width:50%;"><h3 class="icon-head head-compilation"><?php echo $this->getHeader() ?></h3></td>
+            <td class="form-buttons">
+              <?php echo $this->getPayButtonHtml() ?>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="entry-edit">
+<?php if(isset($this->getWalletDetails()->lwError)): ?>
+	<div class="entry-edit-head">
+        <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $this->__('Wallet informations') ?></h4>
+    </div>
+    <div class="box">
+    	<h5><?php echo $this->__("We can't retrieve your wallet!")?></h5> 
+    	<?php echo $this->__('<a href="%s">Please check your module configuration</a> or create your wallet in <a href="%s">Lemonway BO</a>.',Mage::helper("adminhtml")->getUrl('adminhtml/system_config/edit',array('section'=>"sirateck_lemonway")),"https://www.lemonway.fr/MbDev/bo") ?>
+    </div>
+<?php else : ?>
+<?php
+/* @var $wallet Sirateck_Lemonway_Model_Apikit_Apimodels_Wallet */ 
+$_wallet = $this->getWalletDetails()->wallet; 
+?>
+<form name="moneyout_form" id="moneyout_form" method="post" action="<?php echo $this->getPayFormAction(); ?>">
+<?php echo $this->getBlockHtml('formkey')?>
+<div class="box-left">
+    <div class="entry-edit-head">
+        <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $this->__('Wallet informations') ?></h4>
+    </div>
+    <fieldset>
+        <legend><?php echo $this->__('Wallet informations') ?></legend>
+        <table cellspacing="0" class="form-list" style="width:100%">
+            <tr>
+                <td class="label"><label ><?php echo $this->__('Wallet ID')?></label></td>
+                <td class="value">
+                    <strong><?php echo $_wallet->getWalletId() ?></strong>
+                    <input type="hidden" value="<?php echo $_wallet->getWalletId() ?>" name="wallet_id" />
+                </td>
+            </tr>
+            <tr>
+                <td class="label"><label ><?php echo $this->__('Balance')?></label></td>
+                <td class="value">
+                    <strong><?php echo $this->formatPrice($_wallet->getBal())?></strong>
+                    <input type="hidden" value="<?php echo $_wallet->getBal() ?>" name="bal" />
+                </td>
+            </tr>
+            <tr>
+                <td class="label"><label ><?php echo $this->__('Owner name')?></label></td>
+                <td class="value">
+                    <strong><?php echo $_wallet->getName() ?></strong>
+                </td>
+            </tr>
+            <tr>
+                <td class="label"><label ><?php echo $this->__('Owner email')?></label></td>
+                <td class="value">
+                    <strong><?php echo $_wallet->getEmail() ?></strong>
+                </td>
+            </tr>
+            <tr>
+                <td class="label"><label ><?php echo $this->__('Status')?></label></td>
+                <td class="value">
+                    <strong><?php echo $_wallet->getStatus() ?></strong>
+                </td>
+            </tr>
+           <!--<tr>
+                <td class="label"><label ><?php echo $this->__('Is Blocked')?></label></td>
+                <td class="value">
+                    <strong><?php echo $_wallet->getBlocked() ?></strong>
+                </td>
+            </tr>
+             --> 
+        </table>
+    </fieldset>
+</div>
+<div class="box-right">
+    <div class="entry-edit-head">
+        <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $this->__('Iban informations') ?></h4>
+    </div>
+    <fieldset>
+        <legend><?php echo $this->__('Iban informations') ?></legend>
+        <?php if(count($_wallet->getIbans())) :?>
+        <table>
+	        <?php foreach ($_wallet->getIbans() as $_iban) :?>
+	        <tr>
+	        	<td>
+	        		<input class="required-entry" id="iban_<?php echo $_iban->getIbanId() ?>" type="radio" name="iban_id[]" value="<?php echo $_iban->getIbanId() ?>" />
+	        		 <input type="hidden" value="<?php echo $_iban->getIban() ?>" name="iban_<?php echo $_iban->getIbanId() ?>" />
+	        	</td>
+	        	<td class="a-left">
+		        	<label for="iban_<?php echo $_iban->getIbanId() ?>" >
+		        		<strong><?php echo $_iban->getIban() ?></strong>
+	                    <br />
+	                    <strong><?php echo $_iban->getSwift() ?></strong>
+	                    <br />
+	                   <?php echo $this->__('Status')?>&nbsp;<strong><?php echo $_iban->getStatus()?></strong>
+	                </label>
+				</td>
+	        </tr>
+	        <?php endforeach; ?>
+        </table>
+        <?php else:?>
+        	<div class="box">
+		    	<h5><?php echo $this->__("You don't have any Iban!")?></h5> 
+		    	<?php echo $this->__('Please create at least one for wallet <b>%s</b> in <a href="%s">Lemonway BO </a>.',$_wallet->getWalletId(),Mage::helper("adminhtml")->getUrl('adminhtml/system_config/edit',array('section'=>"sirateck_lemonway")),"https://www.lemonway.fr/MbDev/bo") ?>
+		    </div>
+        <?php endif; ?>
+    </fieldset>
+</div>
+
+<?php if ($this->canPayMoneyOut()): ?>
+<div class="clear"></div>
+<div class="box">
+	<div class="entry-edit-head">
+		<h4 class="icon-head head-edit-form fieldset-legend"><?php echo $this->__('Payment informations') ?></h4>
+	</div>
+	<fieldset>
+		<legend><?php echo $this->__('Payment informations') ?></legend>
+		<div class="order-totals">
+		<table cellspacing="0" width="100%">
+				<colgroup>
+					<col>
+		    		<col width="1">
+		        </colgroup>
+		        <tr>
+					<td class="label"><?php echo $this->__('Current balance')?></td>
+					<td><strong><?php echo $this->formatPrice($_wallet->getBal())?></strong></td>
+				</tr>
+				<tr>
+					<td class="label"><?php echo $this->__('Amount to pay')?></td>
+					<td><input id="amountToPay" class="input-text not-negative-amount a-right"  type="text" value="<?php echo $_wallet->getBal()?>" name="amountToPay" /></td>
+				</tr>
+			</table>
+		 <div class="order-totals-bottom">
+	          <div class="divider"></div>
+	          <?php echo $this->getChildHtml('submit_button') ?>
+	     </div>
+		</div>
+	</fieldset>
+	<script type="text/javascript">
+    //<![CDATA[
+    Validation.addAllThese([
+        ['not-negative-amount', '<?php echo $this->helper('sales')->__('Please enter positive number in this field.') ?>', function(v) {
+            if(v.length)
+                return /^\s*\d+([,.]\d+)*\s*%?\s*$/.test(v);
+            else
+                return true;
+        }]
+    ]);
+
+    //]]>
+    </script>
+</div>
+<?php endif; ?>
+</form>
+<script type="text/javascript">
+    moneyoutForm = new varienForm('moneyout_form');
+</script>
+<?php endif;?>
+</div>
+
+

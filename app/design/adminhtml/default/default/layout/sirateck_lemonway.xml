@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Sirateck_Lemonway extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category       Sirateck
+ * @package        Sirateck_Lemonway
+ * @copyright      Copyright (c) 2015
+ * @license        http://opensource.org/licenses/mit-license.php MIT License
+ */
+--> 
+<layout>
+    <adminhtml_lemonway_wallet_index>
+        <reference name="menu">
+            <action method="setActive">
+                <menupath>sales/sirateck_lemonway/wallet</menupath>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="sirateck_lemonway/adminhtml_wallet" name="wallet" />
+
+        </reference>
+    </adminhtml_lemonway_wallet_index>
+    <adminhtml_lemonway_wallet_grid>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="sirateck_lemonway/adminhtml_wallet_grid" name="wallet_grid"/>
+        </block>
+    </adminhtml_lemonway_wallet_grid>
+    <!-- Wallet add/edit action -->
+    <adminhtml_lemonway_wallet_edit>
+        <update handle="editor"/>
+        <reference name="menu">
+            <action method="setActive">
+                <menupath>sales/sirateck_lemonway/wallet</menupath>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="sirateck_lemonway/adminhtml_wallet_edit" name="wallet_edit"></block>
+        </reference>
+        <reference name="left">
+            <block type="sirateck_lemonway/adminhtml_wallet_edit_tabs" name="wallet_tabs"></block>
+        </reference>
+    </adminhtml_lemonway_wallet_edit>
+    
+    <adminhtml_lemonway_moneyout_pay>
+        <reference name="menu">
+            <action method="setActive">
+                <menupath>sales/sirateck_lemonway/moneyout</menupath>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="sirateck_lemonway/adminhtml_moneyout" name="moneyout" template="lemonway/moneyout.phtml" />
+
+        </reference>
+    </adminhtml_lemonway_moneyout_pay>
+
+</layout>

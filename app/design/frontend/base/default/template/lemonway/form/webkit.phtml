@@ -1,0 +1,81 @@
+<?php 
+/* @var $this Sirateck_Lemonway_Block_Form_Webkit */
+$_code=$this->getMethodCode();
+?>
+<div id="payment_form_<?php echo $_code ?>" style="display:none;">
+<?php if($this->oneClicAllowed()) : ?>
+<ul class="form-list" id="oneclic_payment_form_<?php echo $_code ?>">
+ <li>
+
+	<?php if (!$this->customerHasCardId() || !$this->customerHasCardNum()) :?>
+			<div class="input-box">
+				<input id="<?php echo $_code ?>_register_card"  value="register_card"  type="checkbox" name="payment[oneclic]" />
+				<label style="float: none;" for="<?php echo $_code ?>_register_card"><?php echo $this->__('Save your card data for a next buy.') ?></label>
+			</div>
+		<?php else :?>
+			
+			<div class="input-box">
+				<input id="<?php echo $_code ?>_use_card" value="use_card" checked="checked" type="radio" name="payment[oneclic]"  checked/>
+				<label style="float: none;" for="<?php echo $_code ?>_use_card"><?php echo $this->__('Use my recorded card') ?></label>
+			</div>
+			<div class="input-box info-card">
+				<label><?php echo $this->__('Actual card') ?> :</label>
+				<span><?php echo $this->getCardNum() ?></span>
+			</div>
+			<?php if($this->getCardExp() != ""):?>
+				<div class="input-box info-card">
+					<label><?php echo $this->__('Expiration date') ?> : <?php echo $this->getCardExp() ?></label>
+				</div>
+			<?php endif;?>
+			
+			<div class="input-box">
+				<input id="<?php echo $_code ?>_register_card"  type="radio" name="payment[oneclic]" value="register_card"/>
+				<label style="float: none;" for="<?php echo $_code ?>_create_alias_oneclick"><?php echo $this->__('Save new card data') ?></label>
+			</div>
+
+			<div class="input-box">
+				<input id="<?php echo $_code ?>_no_use_card"  type="radio" name="payment[oneclic]" value="no_use_card"  />
+				<label style="float: none;" for="<?php echo $_code ?>_no_use_card"><?php echo $this->__('Not use recorded card data') ?></label>
+			</div>
+
+		<?php endif;?>
+</li>
+   
+</ul>
+ <br />
+<?php endif; ?>
+<div id="<?php echo $_code ?>_redirect_text">
+<?php $_base_message = $this->__('You will be redirect to payment page after you submit order.') ?>
+<?php $_use_card_message = $this->__('Your order will be paid with your registered card after you submit order') ?>
+<?php echo $_base_message ?>
+</div>
+</div>
+ <script type="text/javascript">
+ 	//<![CDATA[
+
+ 	      if($('<?php echo $_code ?>_use_card') != undefined && $('<?php echo $_code ?>_use_card').checked)
+		  {
+			 $('<?php echo $_code ?>_redirect_text').innerHTML = '<?php echo $_use_card_message ?>';
+		  }
+ 			
+ 	     
+
+		var updateRedirectText = function (){
+
+			if($('<?php echo $_code ?>_use_card').checked)
+			{
+				$('<?php echo $_code ?>_redirect_text').innerHTML = '<?php echo $_use_card_message ?>';
+				
+			}
+			else
+			{
+				$('<?php echo $_code ?>_redirect_text').innerHTML = '<?php echo $_base_message ?>';
+				
+			}
+		}
+		 Event.observe($('<?php echo $_code ?>_use_card'),'change',updateRedirectText);
+	     Event.observe($('<?php echo $_code ?>_register_card'),'change',updateRedirectText);
+	     Event.observe($('<?php echo $_code ?>_no_use_card'),'change',updateRedirectText);
+ 	      
+ 	 //]]>
+ </script>
