@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <checkout_onepage_index>
+        <reference name="head">
+            <action method="addJs" ifconfig="carriers/upsap/active"><script>sgecom/upslblap.js</script></action>
+            <block ifconfig="carriers/upsap/active" type="upsap/baseurl" name="upsap_baseurl" template="upsap/baseurl.phtml" output="toHtml"/>
+        </reference>
+    </checkout_onepage_index>
+    <opc_index_index>
+        <reference name="head">
+            <action method="addJs" ifconfig="carriers/upsap/active"><script>sgecom/upslblap.js</script></action>
+            <block ifconfig="carriers/upsap/active" type="upsap/baseurl" name="upsap_baseurl" template="upsap/baseurl.phtml" output="toHtml"/>
+        </reference>
+    </opc_index_index>
+    <onestepcheckout_index_index>
+        <reference name="head">
+            <action method="addJs" ifconfig="carriers/upsap/active"><script>sgecom/upslblap.js</script></action>
+            <block ifconfig="carriers/upsap/active" type="upsap/baseurl" name="upsap_baseurl" template="upsap/baseurl.phtml" output="toHtml"/>
+        </reference>
+    </onestepcheckout_index_index>
+    <firecheckout_index_index>
+        <reference name="head">
+            <action method="addJs" ifconfig="carriers/upsap/active"><script>sgecom/upslblap.js</script></action>
+            <block ifconfig="carriers/upsap/active" type="upsap/baseurl" name="upsap_baseurl" template="upsap/baseurl.phtml" output="toHtml"/>
+        </reference>
+    </firecheckout_index_index>
+    <onepagecheckout_index_index>
+        <reference name="head">
+            <action method="addJs" ifconfig="carriers/upsap/active"><script>sgecom/upslblap.js</script></action>
+            <block ifconfig="carriers/upsap/active" type="upsap/baseurl" name="upsap_baseurl" template="upsap/baseurl.phtml" output="toHtml"/>
+        </reference>
+    </onepagecheckout_index_index>
+    <gomage_checkout_onepage_index>
+        <reference name="head">
+            <action method="addJs" ifconfig="carriers/upsap/active"><script>sgecom/upslblap.js</script></action>
+            <block ifconfig="carriers/upsap/active" type="upsap/baseurl" name="upsap_baseurl" template="upsap/baseurl.phtml" output="toHtml"/>
+        </reference>
+    </gomage_checkout_onepage_index>
+    <aw_onestepcheckout_index_index>
+        <reference name="head">
+            <action method="addJs" ifconfig="carriers/upsap/active"><script>sgecom/upslblap.js</script></action>
+            <block ifconfig="carriers/upsap/active" type="upsap/baseurl" name="upsap_baseurl" template="upsap/baseurl.phtml" output="toHtml"/>
+        </reference>
+    </aw_onestepcheckout_index_index>
+    <amazonpayments_advanced_checkout_index>
+        <reference name="head">
+            <action method="addJs" ifconfig="carriers/upsap/active"><script>sgecom/upslblap.js</script></action>
+            <block ifconfig="carriers/upsap/active" type="upsap/baseurl" name="upsap_baseurl" template="upsap/baseurl.phtml" output="toHtml"/>
+        </reference>
+    </amazonpayments_advanced_checkout_index>
+</layout>

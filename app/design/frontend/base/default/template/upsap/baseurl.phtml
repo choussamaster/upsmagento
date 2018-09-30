@@ -1,0 +1,20 @@
+<style>
+    #sgecom_upsap_sunrise {
+        -webkit-overflow-scrolling: touch !important;
+        overflow: auto !important;
+    }
+</style>
+<script type="text/javascript">
+    var upsapFancyboxModify = '<?php echo Mage::getStoreConfig('carriers/upsap/search_ui', Mage::app()->getStore()->getStoreId())==0?'false':'true'; ?>';
+    <?php if(strpos(Mage::helper('core/url')->getCurrentUrl(), 'https') !== FALSE){ ?>
+    var isHttps = 'https';
+    var upsapBaseUrl = "https:<?php echo str_replace(array('http:', 'https:'), array('', ''), $this->getUrl('/')); ?>";
+    var upsapFancyboxStyle = <?php if(Mage::getStoreConfig('carriers/upsap/css', Mage::app()->getStore()->getStoreId()) != ''){ ?>encodeURIComponent("<?php echo str_replace(array('http:', 'https:'), array('', ''), Mage::getStoreConfig('carriers/upsap/css', Mage::app()->getStore()->getStoreId())); ?>");
+    <?php } else { ?>'';<?php } ?>
+    <?php } else { ?>
+    var isHttps = 'http';
+    var upsapBaseUrl = "<?php echo $this->getUrl('/'); ?>";
+    var upsapFancyboxStyle = <?php if(Mage::getStoreConfig('carriers/upsap/css', Mage::app()->getStore()->getStoreId()) != ''){ ?>encodeURIComponent("<?php echo Mage::getStoreConfig('carriers/upsap/css', Mage::app()->getStore()->getStoreId()); ?>");
+    <?php } else { ?>'';<?php } ?>
+    <?php } ?>
+</script>
